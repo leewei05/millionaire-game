@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Who wants to be a millionaire</title>
+<link rel="stylesheet" type="text/css" href="main.css">
+<link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+      var choose 
+      var answer
+      if(sessionStorage.getItem("fifty")=="true"){
+        $('#50').hide()
+      }
+      if(sessionStorage.getItem("callout")=="true"){
+        $('#callout').hide()
+      }
+      if(sessionStorage.getItem("callout")=="true"){
+        $('#callout').hide()
+      }
+      $.getJSON('./data.json', function(data) {
+        var page = 3
+        var optionDelay = 1500
+        answer = data.questions[page].ans
+        document.getElementById("Q").innerHTML=(page+1)+". "+data.questions[page].que
+        setTimeout(function(){
+          document.getElementById("A").innerHTML="A. "+data.questions[page].A
+          setTimeout(function(){
+            document.getElementById("B").innerHTML="B. "+data.questions[page].B
+            setTimeout(function(){
+              document.getElementById("C").innerHTML="C. "+data.questions[page].C
+                setTimeout(function(){
+                  document.getElementById("D").innerHTML="D. "+data.questions[page].D
+                  setTimeout(function(){
+                    document.getElementById('heart').play();
+                    $('#50').on('click', function() {
+                        document.getElementById(data.questions[page].delete[0]).innerHTML="";
+                        document.getElementById(data.questions[page].delete[1]).innerHTML="";
+                    });
+                  },optionDelay);
+                },optionDelay);
+            },optionDelay);
+          },optionDelay);
+        },optionDelay);
+        document.getElementById("ans").innerHTML=answer
+        document.getElementById("des").innerHTML=data.questions[page].des
+        document.getElementById("money").innerHTML=data.questions[page].money
+      });
+      $('.answer').on('click', function() {
+        choose = $(this).text();
+        console.log(choose)
+      });
+      $('.answer-show').hide();
+      $('.btn-next').hide();
+      $('.btn-view').on('click', function() {
+        var ply = document.getElementById('heart');
+        ply.src = "";
+        setTimeout(function(){
+            if (choose == answer){
+              document.getElementById('right').play();
+            }
+            else{
+              document.getElementById('wrong').play();
+            }
+            $('.answer-list').hide()
+            $('.answer-show').show()
+            $('.btn-view').hide()
+            $('.btn-next').show()
+          },500);   
+        });
+    });
+
+    function helpFifty(){
+      $('#50').attr("disabled",true)
+      sessionStorage.setItem("fifty", "true");
+    }
+    function helpCallout(){
+      $('#callout').attr("disabled",true)
+      sessionStorage.setItem("callout", "true");
+    }
+    function helpSlack(){
+      $('#slack').attr("disabled",true)
+      sessionStorage.setItem("slack", "true");
+    }
+</script>
+</head>
+
+<body>
+<div class="block">
+  <div class="question" id="Q">
+  </div>
+  <div class="answer-list">
+    <a class="answer" id="A" href="#"></a>
+    <a class="answer" id="B" href="#"></a>
+    <a class="answer" id="C" href="#"></a>
+    <a class="answer" id="D" href="#"></a>
+  </div>
+  <div class="answer-show">
+    <div class="answer active">
+      答案是：<span id="ans"></span>
+      <div class="description" id="des"></div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="money" id="money"></div>
+    <button class="btn btn-help" onclick="helpFifty()" id="50">50/50</button>
+    <button class="btn btn-help" onclick="helpCallout()" id="callout">Callout</button>
+    <button class="btn btn-help" onclick="helpSlack()" id="slack">Slack</button>
+    <button class="btn btn-view">看答案</button>
+    <a class="btn btn-next" href="question5.html">下一步</a>
+  </div>
+</div>
+<audio id="heart" loop>  
+  <source src="./heart.mp3" type="audio/mpeg">  
+</audio>
+<audio id="right">  
+  <source src="./right.mp3" type="audio/mpeg">  
+</audio> 
+<audio id="wrong">  
+  <source src="./wrong.mp3" type="audio/mpeg">  
+</audio>  
+</body>
+</html>

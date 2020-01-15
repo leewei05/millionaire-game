@@ -1,0 +1,32 @@
+{
+    "questions": [
+        {
+            "num":1,
+            "que":"What is ...?",
+            "A": "iKalalala",
+            "B": "iKalaler",
+            "C": "iKalarian",
+            "D": "iKalakala",
+            "ans": "C. iKalarian",
+            "des": "Because iKalarian is ....", 
+            "money": "$50",
+            "delete": [
+                "B","D"
+            ]
+        },
+        {
+            "num":2,
+            "que":"What is the color of an apple?",
+            "A": "Green",
+            "B": "Red",
+            "C": "Yellow",
+            "D": "Blue",
+            "ans": "B. Red",
+            "des": "Description of the answer",
+            "money": "$100",
+            "delete": [
+                "A","C"
+            ]
+        }
+    ]
+ }
