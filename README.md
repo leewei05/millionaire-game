@@ -1,4 +1,4 @@
-### Introduction
+## Millionaire Game
 
 This is a duplicate web application from the TV show "Who want's to be a millionaire".
 Built this app just for fun. 
